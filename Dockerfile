@@ -1,4 +1,4 @@
-# This is a Dockerfile for ...
+# Dockerfile for production build
 
 ARG POETRY_HOME=/opt/poetry
 
