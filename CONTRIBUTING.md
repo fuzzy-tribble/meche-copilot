@@ -180,3 +180,7 @@ NOTE: these are basically implemented but we didn't finish testing them and tiei
 # Additional Gotchas you may run into
 
 - If you are contributing to .ipynb notebooks you need to run `nbstripout --install` so that no nb output is committed
+
+- Where I left off specifically was validating the chains worked well with the prompts and got data as expected including parsing tables. Currently I have the output of tese getting cached in the data/.cache folder so that everytime you run it it doesn't re-query for stuff it already has unless you clear the cache. In the .cache file provided you can see that it was perfectly parsing even complex tables and now basically all I had left to do was tie everything back together so it runs as a script for the use. All the pieces of the puzzle are working...they just need to be put together.
+
+![cache](images/cache.png)
