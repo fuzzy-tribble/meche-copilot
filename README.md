@@ -24,7 +24,7 @@ Then, after a human has validated the worksheet it *looks up the engineering spe
 
 Once the human has reviewed, it *generates a summary report* of discrepancies and can optionally *generate annotations* on either or both the engineering design drawings and construction submittals so that discrepancies can be reviewed.
 
-![usage workflow](images/usage_workflow.png)
+<img src="images/usage_workflow.png" alt="usage workflow" width="500"/>
 
 *BEGIN: PLACEHOLDER CONTENT*
 
@@ -107,7 +107,7 @@ Once installation is complete you can run the following commands in the terminal
 ### One time setup
 The application uses the OpenAI API so you will need to get an [API key](https://openai.com/blog/openai-api) if you don't already have one like this
 
-![openai api key](images/openai_api_key.png)
+<img src="images/openai_api_key.png" alt="openai api key" width="200"/>
 
 Then create a `.env` file and copy the following lines into your file (replace the api key with your own)
 
