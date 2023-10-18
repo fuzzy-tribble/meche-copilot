@@ -17,14 +17,14 @@ Fork the repo and submit a PR with your changes.
 ├── images # for images in README or other top-level .md files
 # END: EXPLAINER FILES/FOLDERS
 
-# START: USER FACING FILES/FOLDERS
+# START: USER RELEVANT FILES/FOLDERS
 ├── data # the folder that contains project/session data (project folder, templates and output worksheets, final reports, annotated pdfs, etc)
 │   ├── demo-01 # the users project folder (this one is called demo-01) 3 things (designs, submittals, and scope)
 │   └── templates # equipment templates (used to determine what specs to look for given a piece of equipment)
 ├── cli-config.yaml # the configs for the CLI interface (fonts/welcome/done messages/etc)
 ├── session-config.yaml # the configs for the session (additional agent prompts, location of files/folders, etc)
 ├── .env # user and/or devs will need to create this
-# END: USER FACING FILES/FOLDERS
+# END: USER RELEVANT FILES/FOLDERS
 
 
 # START: MECHE COPILOT CODE
@@ -64,12 +64,21 @@ In addition to TODOs found in the codebase, the following are areas need develop
     + unit tests: only some unit tests are complete, some are scaffolded, and some are missing.
     + evals: evals are partially complete and need to be finished
 
-    Notes re: evals:
+    Notes on evals:
     - tests are for code - like is the code running correctly, handling errors properly, etc
-    - evals are for agents - they are notebooks that help assess the quality of the agents responses and allow us to play with different prompts and see how that affects the reports and such. There is no right/wrong or pass/fail with evals but rather humans need to manually review the agents work and figure out where they are doing well and where they are not. Specifically, this code runs with three major/distinct agents that work together to fillout the worksheet
+    - evals are for things that need to be evauated by a human - like is the annotation correctly formatted, did the agent reply correctly, etc and are ipynb notebooks that help assess the quality of the agents responses and allow us to play with different prompts and see how that affects the reports and such. There is no right/wrong or pass/fail with evals but rather humans need to manually review the agents work and figure out where they are doing well and where they are not. Specifically, this code runs with three major/distinct agents that work together to fillout the worksheet
         + agent 1: document retreival: this agents job is to get the relavent page(s) or section(s) of the user documetns in order for the others to take a closer look/analyze. This is necessary because design documents and submittals can be rather lengthy
         + agnet 2: specs lookup: this agents job is to look at the relavent page(s) or section(s) of the user documetns and determine what specs are being used for each piece of equipment
         + agent 3: specs comparison: this agents job is to compare the specs retreived from the designs to the ones from the submittal and comment on if the specs match or not
+
+        Currently there are 
+        - "prelim evals" which was me playing and assessing how I'd do this project
+        - analyze specs chain eval to see how well the llms analyze specs on docs
+        - camelot eval which evaluates how well camelot parses tables in pdfs
+        - read design chain eval which evaluates how well the agents read design docs
+        - read submittal chain eval which evaluates how well the agents read submittal docs
+
+        I have been running them locally (poetry install locally so you have a local .venv to point the kernel to but it should prob be set up so they can just run automatically from the dev container kernel/docker)
 
 - **Generate annots script**: the script that generates annotations from the excel sheet notes needs to be written. All of the components to do it are dont but we are waiting for the project owner to provide examples of how engineering annotations should look stylistically.
 
