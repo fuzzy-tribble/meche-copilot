@@ -1,29 +1,10 @@
+🚧 NOTICE: This is a WIP meaning that V1 has not been released yet and we are still in the process of developing the core functionality so be prepared for messyness and sporatic breaking changes.
+
 # Contributing Guidelines
 
-Fork the repo and submit a PR. No specific format is required for PRs at this points...as long as its reasonable/understandble and focuses on the core development areas needed (discussed below) it will be integrated.
+Fork the repo and submit a PR with your changes. 
 
-## TODOs
-Until a first version is released, we are using inline TODO tags to track issues and work to be done. 
-
-If you want to discuss anything with us though feel free to use the issues tab.
-
-**Contributing in places with TODO tags is preferred (but not reqd).**
-
-In addition to TODOs found in the codebase, the following are areas need development work:
-
-- **Tests**: 
-    + unit tests: only some unit tests are complete, some are scaffolded, and some are missing.
-    + evals: evals are partially complete and need to be finished
-
-- **Linting**: Started a Makefile to make it easy for devs (and later github actions) to run linting and things but didn't finish this. This needs to be robust before release.
-
-- **Usage Scripts**: Currently the main scripts that the user runs are generate-ws, fillout-ws, generate-report and generate-annots (see pyproject.toml). However it would be nice to have a script for preprocessing the data for the ```ReadDesignChain``` and ```ReadSubmittalChain``` in case users want to just run those individually and not wait for the whole generate-ws/fillout-ws/etc workflow. (Also fillout-ws can take a while depending on the size of the submittal so it would be nice to have a way to run that separately as well)
-
-- Docs: We need to write documentation for the codebase. This should be done using Jupyter Notebooks and Sphinx (on readthedocs). The docs should be written in a way that allows for easy contribution from the community.
-
-- **Data**: More data to populate the equipment template database is helpful
-
-- **Graphical User Interface**: we decided to just use a CLI for the MVP but if you feel like building out a simple GUI that would be cool.
+*(No specific format is required for PRs at this point...as long as its reasonable/understandble and focuses on the core development areas needed (discussed below) it will be integrated.)*
 
 ## Directory Structure
 
@@ -37,44 +18,63 @@ In addition to TODOs found in the codebase, the following are areas need develop
 # END: EXPLAINER FILES/FOLDERS
 
 # START: USER FACING FILES/FOLDERS
-├── data # the only folder users should ever touch (they put their projects designs and submittals here)
-│   ├── demo-01 # the demo project folder with 3 things (designs, submittals, and scope)
-│   ├── demo1-ws-answers.xlsx # only here during development to make sure the agent retreives the correct data (the answers the agent should return in its filled out worksheet)
-│   └── templates # equipment templates (used to determine what specs to look for)
-├── cli-config.yaml # ...
-├── session-config.yaml # ...
-├── .env # ...
+├── data # the folder that contains project/session data (project folder, templates and output worksheets, final reports, annotated pdfs, etc)
+│   ├── demo-01 # the users project folder (this one is called demo-01) 3 things (designs, submittals, and scope)
+│   └── templates # equipment templates (used to determine what specs to look for given a piece of equipment)
+├── cli-config.yaml # the configs for the CLI interface (fonts/welcome/done messages/etc)
+├── session-config.yaml # the configs for the session (additional agent prompts, location of files/folders, etc)
+├── .env # user and/or devs will need to create this
 # END: USER FACING FILES/FOLDERS
 
 
 # START: MECHE COPILOT CODE
-├── meche_copilot # all the meche_copilot code
-│   ├── chains
-│   ├── cli
+├── meche_copilot # all meche_copilot code
+│   ├── chains # custom langchain chains for reading designs, submittals, etc
+│   ├── cli # scripts for the CLI interface (generate-ws, fillout-ws, generate-report, generate-annots)
 │   ├── get_comparison_results.py
 │   ├── get_eq_specs_and_comps.py
 │   ├── get_equipment_results.py
-│   ├── pdf_helpers
-│   ├── schemas.py
-│   └── utils
-├── tests
-│   ├── _test_data
-│   ├── data.py
+│   ├── pdf_helpers # things to help deal with pdfs (parsing, annotating, etc)
+│   ├── schemas.py # pydantic schemas for the data
+│   └── utils # utility functions (dataframe chunking, etc)
+├── tests # all meche_copilot tests
+│   ├── _test_data # data for running tests
+│   ├── _test_results # outputs for tests that write to disk
 │   ├── evals # agent evals (partially complete -- needs work)
-│   ├── foo_test.py
-│   ├── helpers 
-│   ├── integration_tests # TODO: need to write integration tests
 │   └── unit_tests # all unit tests (main file name with _test.py suffix)
 # END: MECHE COPILOT CODE
 
 # START: DEV CONTAINER/DEVELOPMENT FILES/FOLDERS
-├── .devcontainer # ...
-├── Dockerfile # ...
-├── dev.Dockerfile # 
-├── Makefile # ...
+├── .devcontainer # the configs for launching the dev container
+├── Dockerfile # production build dockerfile
+├── dev.Dockerfile # dev build dockerfile
+├── Makefile # makefile for running linting and other things TODO: needs work
 ├── poetry.toml # poetry config
 ├── pyproject.toml # poetry config
+# END: DEV CONTAINER/DEVELOPMENT FILES/FOLDERS
 ```
+
+## Major TODOs Before V1 Release
+
+**Contributing in places with TODO tags is preferred (but not required)**
+
+In addition to TODOs found in the codebase, the following are areas need development work:
+
+- **Tests**: 
+    + unit tests: only some unit tests are complete, some are scaffolded, and some are missing.
+    + evals: evals are partially complete and need to be finished
+
+- **Generate annots script**: the script that generates annotations from the excel sheet notes needs to be written. All of the components to do it are dont but we are waiting for the project owner to provide examples of how engineering annotations should look stylistically.
+
+- **Linting**: Started a Makefile to make it easy for devs (and later github actions) to run linting and things but didn't finish this. This needs to be robust before release.
+
+- **Usage Scripts**: Currently the main scripts that the user runs are generate-ws, fillout-ws, generate-report and generate-annots (see pyproject.toml). However it would be nice to have a script for preprocessing the data for the ```ReadDesignChain``` and ```ReadSubmittalChain``` in case users want to just run those individually and not wait for the whole generate-ws/fillout-ws/etc workflow. (Also fillout-ws can take a while depending on the size of the submittal so it would be nice to have a way to run that separately as well)
+
+- **Docs**: We need to write documentation for the codebase. This should be done using Jupyter Notebooks and Sphinx (on readthedocs). The docs should be written in a way that allows for easy contribution from the community.
+
+- **Data**: More data to populate the equipment template database is helpful
+
+- **Graphical User Interface**: we decided to just use a CLI for the MVP but if you feel like building out a simple GUI that would be cool.
 
 ## Contributing Instructions
 
@@ -123,9 +123,11 @@ and outputs a worksheet in the data/ dir which has sources, specs definitions an
 
 ![ws3](images/ws3.png)
 
-Running the `copilot-fillout-ws` script looks like this - UNFINISHED
-Running the `copilot-generate-report` script looks like this - UNFINISHED
-Running the `copilot-generate-annots` script looks like this - UNFINISHED
+Running the `copilot-fillout-ws` script looks like this - TODO:
+
+Running the `copilot-generate-report` script looks like this - TODO:
+
+Running the `copilot-generate-annots` script looks like this - TODO:
 
 
 ### 5) Submit PR
@@ -143,9 +145,4 @@ Towards the end we realized that camelot had trouble parsing tables that were co
 **2) Why didn't you use langchain's prebuilt document retreival chains?**
 We tried using various langchain prebuilt document retreival chains (see LookupChain) but its wasn't doing a good/consistent job so we decided to write a custom retreiver for reading designs and submittals (see ```ReadDesignChain``` and ```ReadSubmittalChain```). 
 
-these are basically implemented but you didn't finish testing them and tieing them back into the LookupSpecsChain. Actually you weren't sure if you were gonna do that or ditch the LookupSpecsChain in favor of AnalyzeSpecsChain which would ask the LLM on a per spec basis. Perhaps that is overkill and there is a good balance you can find where you have it do a few+ specs at a time....maybe update the chunker to handle this.
-
-
-- Oh...and you need to write the generate engineering callout/annotations but are waiting on some examples of how that should look stylistically...once you have that its a few hrs of work with MuPDF and done.
-
-
+NOTE: these are basically implemented but we didn't finish testing them and tieing them back into the `LookupSpecsChain`. Actually we weren't sure if we were gonna do that or ditch the `LookupSpecsChain` in favor of `AnalyzeSpecsChain `which would ask the LLM on a per spec basis. Perhaps that is overkill and there is a good balance we can do a few+ specs at a time....maybe update the chunker to handle this.
