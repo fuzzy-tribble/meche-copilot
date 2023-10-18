@@ -1,0 +1,103 @@
+[tool.poetry]
+name = "meche-copilot"
+version = "0.0.1"
+description = "..."
+license = "MIT"
+authors = []
+readme = "README.md"
+# repository = "..."
+
+[tool.poetry.scripts]
+copilot-generate-ws = "meche_copilot.cli.generate_ws:main"
+copilot-fillout-ws = "meche_copilot.cli.fillout_ws:main"
+copilot-generate-report = "meche_copilot.cli.generate_report:main"
+copilot-generate-annots = "meche_copilot.cli.generate_annots:main"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+python-dotenv = "^1.0.0"
+pydantic = "^1"
+loguru = "^0.7.0"
+openai = "^0.27.8"
+rich = "^13.4.2" # remove
+requests = "^2.31.0"
+openpyxl = "^3.1.2"
+pandas = "^2.0.3"
+pyyaml = "^6.0"
+pymupdf = "^1.22.5"
+python-box = "^7.0.1"
+tabulate = "^0.9.0"
+chromadb = "^0.4.2" # remove
+pypdf = "^3.12.2"
+tiktoken = "^0.4.0"
+faiss-cpu = "^1.7.4" # remove
+langchain = "^0.0.243"
+cleo = "^2.0.1"
+pdfminer = "^20191125"
+pyarrow = "^12.0.1"
+matplotlib = "^3.7.2"
+camelot-py = "^0.11.0"
+opencv-python = "^4.8.0.76" # needed for camelot
+ghostscript = "^0.7" # needed for camelot
+
+[tool.poetry.group.test]
+optional = true
+[tool.poetry.group.test.dependencies]
+pytest = "^7.3.0"
+pytest-cov = "^4.0.0"
+pytest-dotenv = "^0.5.2"
+pytest-asyncio = "^0.20.3"
+
+[tool.poetry.group.eval]
+optional = true
+[tool.poetry.group.eval.dependencies]
+nbstripout = "^0.6.1" # must run nbstripout --install so changes are made in your .git
+ipykernel = "^6.25.1"
+jupyter = "^1.0.0"
+
+[tool.poetry.group.docs]
+optional = true
+[tool.poetry.group.docs.dependencies]
+nbdoc = "^0.0.82"
+
+[tool.poetry.group.lint.dependencies]
+ruff = "^0.0.249"
+types-toml = "^0.10.8.1"
+types-redis = "^4.3.21.6"
+black = "^23.1.0"
+types-chardet = "^5.0.4.6"
+mypy-protobuf = "^3.0.0"
+
+[tool.poetry.group.typing.dependencies]
+mypy = "^0.991"
+types-pyyaml = "^6.0.12.2"
+types-requests = "^2.28.11.5"
+
+# rust python linter
+[tool.ruff]
+select = [
+  "E",  # pycodestyle
+  "F",  # pyflakes
+  "I",  # isort
+]
+
+# static type checking
+[tool.mypy]
+ignore_missing_imports = "True"
+disallow_untyped_defs = "True"
+exclude = ["notebooks", "examples", "example_data"]
+
+# coverage
+[tool.coverage.run]
+omit = [
+    "tests/*",
+]
+
+# build with poetry
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# test with pytest
+[tool.pytest.ini_options]
+addopts = "--strict-markers --strict-config --durations=5"

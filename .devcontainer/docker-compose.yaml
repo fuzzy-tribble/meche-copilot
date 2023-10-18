@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  copilot:
+    build:
+      dockerfile: dev.Dockerfile
+      context: ..
+    volumes:
+      - ..:/workspaces/meche-copilot
+  # env_file:
+  #   - .env
+  # environment:
+  #   OPENAI_API_KEY: ${OPENAI_API_KEY}

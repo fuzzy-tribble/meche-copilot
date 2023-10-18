@@ -1,0 +1,48 @@
+# A DEMO SESSION CONFIG FILE
+# This file is used to configure the session
+# The session is the main entry point of the program
+
+# You can either name your project folder 'demo-01' and put it in the 'data' folder and keep all these settings as they are OR you can change the paths to your project folder and templates folder
+
+# working-fpath is the path to your project folder which is where the system will look for engineering design documents and construction submittals
+working-fpath: ./data/demo-01
+
+# scope-fpath is the path to your scope file which is where the system will look for the scope file
+scope-fpath: ./data/demo-01/scope.xlsx
+
+# templates-fpath is the path to your templates folder which is where the system will look for equipment templates
+templates-fpath: ./data/templates
+
+# Technically you can analyze things other than designs and submittals so this optionally just gives the agent more background knowledge/info about what its analyzing (problably no need to change it unless agent evals show that it needs more background info to understand or interpret your documents)
+design:
+  name: "Engineering design"
+  description: "Engineering design drawings and schedules ..."
+submittal:
+  name: "Construction Submittal"
+  description: "Construction submittals ..."
+
+# There are THREE distinct agents that work together in the session to retrieve, read and compare design documents and submittals.
+
+# The doc retriever is responsible for retreiving the relavent pages or sections of a large pdf file that need to be analyzed more deeply. 
+# (Eg. engineering designs are usually large pdf files with many pages but only a few pages are relavent to the analysis, this agent is responsible for finding those pages/sections)
+doc-retriever:
+  system-prompt-template: |
+    some system prompt
+  message-prompt-template: |
+    some message prompt
+
+# The spec reader is responsible for reading the documents that have been retrieved by the doc retriever
+# (Eg. engineering designs say pump X is rated for YCFM, or construction submittal says pump X is rated for ZCFM)
+spec-reader:
+  system-prompt-template: |
+    some system prompt
+  message-prompt-template: |
+    some message prompt
+
+# The spec comparer is responsible for comparing the specs that have been read by the spec reader and comparing them to see if they are within spec or not 
+# (Eg. engineer designs a pump to work at X-YCFM and the spec comparer check to may sure that Z is between X and Y)
+spec-comparer:
+  system-prompt-template: |
+    some system prompt
+  message-prompt-template: |
+    some message prompt

@@ -1,0 +1,33 @@
+# A DEMO CLI CONFIG FILE
+# This file is used to configure the CLI for the session
+# The CLI can be configured to use different colors and formatting for the prompts and messages for each script generate-ws, fillout-ws, etc
+
+theme:
+  # pre defined color options: black, red, green, yellow, blue, magenta, cyan, white, bright_black, bright_red, bright_green, bright_yellow, bright_blue, bright_magenta, bright_cyan, bright_white, or #hex
+  # formatting options: bold, dim, italic, underline, blink, blink2, reverse, conceal, strike, underline2, frame, encircle, overline
+  intro: "italic green"
+  outtro: "italic green"
+  info: "italic cyan"
+  prompt: "bold yellow"
+  input: "bold white"
+  error: "bold red"
+generate-ws:
+  intro-prompt: |
+    Welcome ...
+  outtro-prompt: |
+    Done generating report ...
+fillout-ws:
+  intro-prompt: |
+    Welcome ...
+  outtro-prompt: |
+    Done filling out ...
+generate-report:
+  intro-prompt: |
+    Welcome ...
+  outtro-prompt: |
+    Done ...
+generate-annots:
+  intro-prompt: |
+    Welcome ...
+  outtro-prompt: |
+    Done ...
