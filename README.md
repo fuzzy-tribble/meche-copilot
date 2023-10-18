@@ -43,17 +43,19 @@ Once the human has reviewed, it *generates a summary report* of discrepancies an
 *END: PLACEHOLDER CONTENT*
 
 ## ⛔ Limitations and Future Development
-This project was developed as proof-of-concept/MVP to demonstrate how software + LLMs can help automate this process. 
+This project was developed as proof-of-concept/MVP to demonstrate how software + LLMs can help automate a common and tedious engineering task.
 
-If you would like to fund further development that adds a graphical user interface or adds other features specific to your use case you can either 
-1) Fork the project, make your changes and then create a pull request so we can integrate your changes or 
-2) Contact the developers (create an issue in the issues tab) about funding further development.
+If you are interested in further development that adds a graphical user interface or adds other features specific to your use case you can either 
+
+1) [Contribute](CONTRIBUTING.md) to the project by forking the repo and submitting a pull request with your changes
+
+2) [Create a new issue](https://github.com/fuzzy-tribble/meche-copilot/issues) to request features or discuss further development.
 
 Because this project was developed as a proof of concept (MVP) it has the following limitations:
 
-- the system knows what equipment specifications and features to pull based on a template library so if your use case requires uncommon equipment or needs specific equipment characteristics then you will need to add equipment templates to the library for the agents to reference/use as templates.
+- **Limited Equipment Templates**: the system knows what equipment specifications and features to pull based on a template library so if your use case requires uncommon equipment or needs specific equipment characteristics then you will need to add equipment templates to the library for the agents to reference/use as templates. This is possible in the current version to do it just may not have your specific equipment templates for your use case in the library.
 
-- companies may require that LLM's used in this project be run locally or on private servers in the case where there are sensitive internal documents. This MVP doesn't deal with that use case.
+- **Data Privacy**: companies may require that LLM's used in this project be run locally or on private servers in the case where there are sensitive internal documents. This MVP doesn't deal with that use case but could be extended to do so.
 
 ----------------
 
