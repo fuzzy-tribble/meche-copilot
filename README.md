@@ -5,9 +5,11 @@
 ⚡ An opensource tool that allows engineers to compare equipment component specifications between engineering designs and construction submittals. ⚡
 
 *BEGIN: PLACEHOLDER CONTENT*
+
 [![Release Notes](https://img.shields.io/github/release/hwchase17/langchain)](https://github.com/hwchase17/langchain/releases)
 [![Dependency Status](https://img.shields.io/librariesio/github/langchain-ai/langchain)](https://libraries.io/github/langchain-ai/langchain)
 [![Open Issues](https://img.shields.io/github/issues-raw/hwchase17/langchain)](https://github.com/hwchase17/langchain/issues)
+
 *END: PLACEHOLDER CONTENT*
 
 ## 🤔 What is it and how does it work?
@@ -26,6 +28,7 @@ Once the human has reviewed, it *generates a summary report* of discrepancies an
 
 *BEGIN: PLACEHOLDER CONTENT*
 
+
 | Feature                                               | Version 0.1.x | Version 0.2.x |
 |-------------------------------------------------------|---------------|---------------|
 | Works on Windows/OSX/Linux                            | ✅            | ✅            |
@@ -36,6 +39,7 @@ Once the human has reviewed, it *generates a summary report* of discrepancies an
 | Analyzes construction submittals                      | ✅            | ✅            |
 | Compares specs between design and submittal documents | ✅            | ✅            |
 | Annotates documents with callouts                     | ✅            | ✅            |
+
 *END: PLACEHOLDER CONTENT*
 
 ## ⛔ Limitations and Future Development
