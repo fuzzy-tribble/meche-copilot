@@ -5,22 +5,9 @@
 ⚡ An opensource tool that allows engineers to compare equipment component specifications between engineering designs and construction submittals. ⚡
 
 *BEGIN: PLACEHOLDER CONTENT*
-
 [![Release Notes](https://img.shields.io/github/release/hwchase17/langchain)](https://github.com/hwchase17/langchain/releases)
 [![Dependency Status](https://img.shields.io/librariesio/github/langchain-ai/langchain)](https://libraries.io/github/langchain-ai/langchain)
 [![Open Issues](https://img.shields.io/github/issues-raw/hwchase17/langchain)](https://github.com/hwchase17/langchain/issues)
-
-
-| Feature                                               | Version 0.1.x | Version 0.2.x |
-|-------------------------------------------------------|---------------|---------------|
-| Works on Windows/OSX/Linux                            | ✅            | ✅            |
-| User Interface Style                                  | Command Line  | Graphical User Interface |
-| Analyzes equipment from scope                         | ✅            | ✅            |
-| Analyzes engineering design drawings                  | ❌            | ❌            |
-| Analyzes mechanical schedules                         | ✅            | ✅            |
-| Analyzes construction submittals                      | ✅            | ✅            |
-| Compares specs between design and submittal documents | ✅            | ✅            |
-| Annotates documents with callouts                     | ✅            | ✅            |
 *END: PLACEHOLDER CONTENT*
 
 ## 🤔 What is it and how does it work?
@@ -34,6 +21,22 @@ It does so by *looking at the engineering design drawings, construction submitta
 Then, after a human has validated the worksheet it *looks up the engineering specs and construction specs* and tries to determine if the construction specs meet the engineering design specs. 
 
 Once the human has reviewed, it *generates a summary report* of discrepancies and can optionally *generate annotations* on either or both the engineering design drawings and construction submittals so that discrepancies can be reviewed.
+
+![usage workflow](images/usage_workflow.png)
+
+*BEGIN: PLACEHOLDER CONTENT*
+
+| Feature                                               | Version 0.1.x | Version 0.2.x |
+|-------------------------------------------------------|---------------|---------------|
+| Works on Windows/OSX/Linux                            | ✅            | ✅            |
+| User Interface Style                                  | Command Line  | Graphical User Interface |
+| Analyzes equipment from scope                         | ✅            | ✅            |
+| Analyzes engineering design drawings                  | ❌            | ❌            |
+| Analyzes mechanical schedules                         | ✅            | ✅            |
+| Analyzes construction submittals                      | ✅            | ✅            |
+| Compares specs between design and submittal documents | ✅            | ✅            |
+| Annotates documents with callouts                     | ✅            | ✅            |
+*END: PLACEHOLDER CONTENT*
 
 ## ⛔ Limitations and Future Development
 This project was developed as proof-of-concept/MVP to demonstrate how software + LLMs can help automate this process. 
@@ -52,118 +55,135 @@ Because this project was developed as a proof of concept (MVP) it has the follow
 
 # Installation
 
-You can install and run locally or with docker (recommended).
+TODO: create a runnable option for users thats easy and doesn't use dev containers or install unnecessary dev deps in their container.
 
-## Install and run with Docker (recommended)
+## Install and run with Dev Container in VS-Code & Docker (recommended)
 
 ### Prerequisites
 
-Ensure that Docker is installed on your system. If not, [download and install Docker](https://docs.docker.com/engine/install/).
+Make sure that
+- Docker is installed on your system. If not, [download and install Docker](https://docs.docker.com/engine/install/).
+- VS-Code is installed on your system. If not, [download and install VS-Code](https://code.visualstudio.com/download).
+- Dev Containers extension is installed in VS-Code. If not, [download and install the Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
 
 ### Instructions
 
 1. Clone the Repository
 
-First, clone the project repository to your local machine.
+    First, clone the project repository to your local machine.
 
-```bash
-git clone https://github.com/TODO
-cd meche-copilot
-```
+    ```bash
+    git clone https://github.com/fuzzy-tribble/meche-copilot.git
+    ```
 
-2. Build the Docker Image
+2. Open the project in VS-Code
 
-Build the Docker image using the provided Dockerfile.
+3. Run the Dev Container
 
-```bash
-docker build -t TODO .
-```
+    *Note: the first time you do this it will take a while because its building the image and installing everything. After thats done it will be as fast as switching to the dev container.*
 
-3. Run the Docker Container
+    To run the dev container click the Dev Container option in the menu bar at the bottom of VS-Code or do it through command palette like this
 
-Run the Docker container using the image you just built.
+    ![launch dev container](images/launch_dev_container.png)
 
-```bash
-docker run -p 8000:8000 TODO
-```
+4. Quit
 
-4. When you are done using the program, stop the container.
-
-```bash
-docker stop $(docker ps -q --filter ancestor=TODO)
-```
-
-
-## Install and run locally
-
-### Prerequisites
-
-Python, poetry and vscode or whatever IDE you want.
- 
-### Instructions
-
-1. Clone the Repository
-
-First, clone the project repository to your local machine.
-
-```bash
-git clone https://github.com/TODO
-cd TODO
-```
-
-2. Run using .toml scripts
-
+    When you are done, stop the dev container and docker.
 
 # Usage
 
-Once installation is complete you can access the application...TODO
+Once installation is complete you can run the following commands in the terminal. Use the command palette to open a terminal in VS-Code.
 
-![usage workflow](images/usage_workflow.png)
+![open terminal](images/open_terminal.png)
 
-## Step 0: Preparation
+## Step 0: Setup
 
-### one time
-- Get an openai api key and add it to your .env file
-- Create a config.yaml file
+### One time setup
+The application uses the OpenAI API so you will need to get an [API key](https://openai.com/blog/openai-api) if you don't already have one like this
 
-### each time you want to run a new analysis session
-- Create a project folder
-- Define session scope
+![openai api key](images/openai_api_key.png)
 
+Then create a `.env` file and copy the following lines into your file (replace the api key with your own)
+
+```sh
+# .env
+PROJECT_ROOT = '/workspaces/meche-copilot'
+DATA_CACHE = 'data/.cache'
+OPENAI_API_KEY=sk-000000000
+```
+
+### Configure your analysis session
+
+The `session-config.yaml` file is where you define the scope of your analysis session. 
+
+*NOTE: You can just keep the default session-config is you want to rename your project folder demo-01 and your design and submittal docs accordingly.*
+
+In the session config file provided we use a project folder called `demo-01` that contains our engineering designs, construction submittals, and project scope.
+
+The scope excel file should look like this
+![scope](images/scope.png)
+where the columns are
+- `num_instances`: the number of instances of the equipment
+- `specifications_template`: the name of the equipment template to use for this equipment
+- `design_fpaths`: the name of the design documents in the project folder
+- `design_notes`: any notes that may the agent find the relavent information for the equipment in the design documents
+- `submittal_fpaths`: the name of the submittal documents in the project folder
+- `submittal_notes`: any notes that help the agent find the relavent information for the equipment in the submittal documents
 
 ## Step 1: Generate the worksheet
 
-Running this command will generate the worksheet from the configs and scope you pre
+In the terminal, run this command to generate the worksheet from the session-configs and scope you previously defined.
 
-viously defined. Once its done, you can open the worksheet and make any changes you'd like before it gets filled out in the next step.
+```bash
+# generates the worksheet
+copilot-generate-ws
+```
+
+![worksheet](images/generate-ws.png)
+
+Once its done, you can open the worksheet and make any changes you'd like before it gets filled out in the next step.
+
+![ws1](images/ws1.png)
 
 Once you are happy with it save and close then move to the next step.
 
+## Step 2: Fill out the worksheet
+
+In the terminal, run this command to fill out the worksheet. This command will look for each spec in the worksheet and try to find the corresponding spec in the design and submittal documents to fillout the worksheet.
+
+*Note: This will take some time especially if your scope is big!*
+
 ```bash
-generate-ws
+# fills out the worksheet
+copilot-fillout-ws
 ```
 
-## Step 2: Generate the EDS worksheet answers
+TODO: insert image of running fillout-ws command
 
-Running this command will generate worksheet answers using langchain agents with the tools you provided in the agent-config.yaml. Once its done you can open the filled out worksheet and review the answers and make any changes you want.
+Once its done you can open the filled out worksheet and review the answers and make any changes you want.
+
+TODO: insert image of filled out worksheet
 
 Once you are happy with it, save and close then move to the next step.
 
-```bash
-# NOTE: this step will take some time especially if your scope is big!
-fillout-ws
-```
+## Step 3: Generate final report and annotations
 
-## Step 3: Generate the EDS report from worksheet answers
-
-Running this command will create a nice looking report and annotate the spec files you provided if that is enabled in your config
+In the terminal, run this command to generate the final report from the worksheet. These commands will create a nice looking report and annotate the spec files you provided respectively.
 
 ```bash
-generate-report
-generate-annots
+# generate the final masterlist report from the filled out worksheet
+copilot-generate-report
+
+# generate annotations on the design and/or submittal documents from the notes columns in the filled out worksheet
+copilot-generate-annots
 ```
 
-Now you should have a final report that nicely shows the specs of the characteristics of each instance of equipment you scoped along with the annotations on the specs you provided.
+TODO: insert image of running generate-report command
 
-## Step 4: Cleanup
-run cleanup or do it manually and stop your docker container if you aren't running another analysis session anytime soon.
+TODO: insert image of running generate-annots command
+
+Once you are done, you can open the report and annotations and review them and or run another analysis or quit.
+
+TODO: insert image of report
+
+TODO: insert image of annotations
