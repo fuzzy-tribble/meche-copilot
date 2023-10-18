@@ -4,8 +4,7 @@ from typing import List, Tuple
 from loguru import logger
 
 from meche_copilot.schemas import ScopedEquipment
-from meche_copilot.chains.lookup_specs_chain import AnalyzeSpecsChain
-from meche_copilot.chains.read_submittal_chain import get_compare_specs_chain
+from meche_copilot.chains.analyze_specs_chain import AnalyzeSpecsChain
 from meche_copilot.pdf_helpers.get_text_bounding_box import get_text_bounding_box
 
 # TODO - change data prep so not copying and deleting...yuck

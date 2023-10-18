@@ -1,12 +1,4 @@
-"""
-Test add comment to text
-"""
-import pytest
-from meche_copilot.pdf_helpers.add_comment_to_text import add_comment_to_text
-
-@pytest.mark.skip(reason="Scaffold needs convert to pytest")
-def test_add_comment_to_text():
-    pass
+# TODO - move this to EVALS/ since its a visually evaluated test
 
 # SCAFFOLD
 # text_to_comment = "HVLS-1"

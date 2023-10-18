@@ -31,24 +31,24 @@ Fork the repo and submit a PR with your changes.
 ├── meche_copilot # all meche_copilot code
 │   ├── chains # custom langchain chains for reading designs, submittals, etc
 │   ├── cli # scripts for the CLI interface (generate-ws, fillout-ws, generate-report, generate-annots)
-│   ├── get_comparison_results.py
-│   ├── get_eq_specs_and_comps.py
-│   ├── get_equipment_results.py
+│   ├── get_comparison_results.py # idr what i was doing with these...
+│   ├── get_eq_specs_and_comps.py # idr what i was doing with these...
+│   ├── get_equipment_results.py # idr what i was doing with these...
 │   ├── pdf_helpers # things to help deal with pdfs (parsing, annotating, etc)
 │   ├── schemas.py # pydantic schemas for the data
 │   └── utils # utility functions (dataframe chunking, etc)
 ├── tests # all meche_copilot tests
 │   ├── _test_data # data for running tests
 │   ├── _test_results # outputs for tests that write to disk
-│   ├── evals # agent evals (partially complete -- needs work)
-│   └── unit_tests # all unit tests (main file name with _test.py suffix)
+│   ├── evals # evals are things that need to be manually reviewed by humans (like is it highlighting pdfs correctly, is the agent outputting the correct specs, etc)
+│   └── unit_tests # all unit tests
 # END: MECHE COPILOT CODE
 
 # START: DEV CONTAINER/DEVELOPMENT FILES/FOLDERS
 ├── .devcontainer # the configs for launching the dev container
 ├── Dockerfile # production build dockerfile
 ├── dev.Dockerfile # dev build dockerfile
-├── Makefile # makefile for running linting and other things TODO: needs work
+├── Makefile # makefile for running linting, etc
 ├── poetry.toml # poetry config
 ├── pyproject.toml # poetry config
 # END: DEV CONTAINER/DEVELOPMENT FILES/FOLDERS
@@ -102,6 +102,11 @@ Probably wise to start by running unit tests to wrap your head around how things
 
 For example, now your terminal in VS-code will be running in the dev container so you can make sure poetry successfully installed all deps by running ```poetry show``` in the terminal
 
+```sh
+# NOTE: you prob need to run poetry install so that meche_copilor is aviable in ipython and in tests scripts 
+poetry install
+```
+
 ![terminal in dev container](images/terminal_in_container.png)
 
 OR you can launch ipython by running ```ipython``` in the terminal
@@ -111,10 +116,19 @@ OR you can launch ipython by running ```ipython``` in the terminal
 OR you can run unit tests like this
 
 ```sh
+# runs all unit tests
+poetry run pytest tests/unit_tests
+
+# runs a specific unit test for a module/file
 poetry run pytest tests/unit_tests/copilot/generate_ws_test.py
+
+# runs a specific unit test within a module/file
+poetry run pytest tests/unit_tests/copilot/generate_ws_test.py::test_generate_ws
 ```
 
 ![pytest usage](images/pytest_usage.png)
+or all tests
+![pytest all unit tests](images/unit_tests.png)
 
 OR you can run any of the scripts by typing copi (tab completion to get the copilot-bla scripts)
 
@@ -153,3 +167,7 @@ Towards the end we realized that camelot had trouble parsing tables that were co
 We tried using various langchain prebuilt document retreival chains (see LookupChain) but its wasn't doing a good/consistent job so we decided to write a custom retreiver for reading designs and submittals (see ```ReadDesignChain``` and ```ReadSubmittalChain```). 
 
 NOTE: these are basically implemented but we didn't finish testing them and tieing them back into the `LookupSpecsChain`. Actually we weren't sure if we were gonna do that or ditch the `LookupSpecsChain` in favor of `AnalyzeSpecsChain `which would ask the LLM on a per spec basis. Perhaps that is overkill and there is a good balance we can do a few+ specs at a time....maybe update the chunker to handle this.
+
+# Additional Gotchas you may run into
+
+- If you are contributing to .ipynb notebooks you need to run `nbstripout --install` so that no nb output is committed

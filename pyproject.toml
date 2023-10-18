@@ -74,6 +74,10 @@ types-pyyaml = "^6.0.12.2"
 types-requests = "^2.28.11.5"
 
 # rust python linter
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.25.2"
+
 [tool.ruff]
 select = [
   "E",  # pycodestyle

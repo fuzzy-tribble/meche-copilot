@@ -1,3 +1,6 @@
+"""
+A chain that reads engineering design documents and extracts data from them by reading schedules and drawings
+"""
 from __future__ import annotations
 import os
 import fitz
@@ -28,7 +31,16 @@ from meche_copilot.utils.envars import OPENAI_API_KEY, DATA_CACHE
 # TODO - save llm conversation to cache
 
 class ReadDesignChain(Chain):
-    """A chain that reads engineering design documents and extracts data from them by reading schedules and drawings"""
+    """
+    A chain that reads engineering design documents and extracts data from them by reading schedules and drawings
+
+    Step 1: Get all potential schedules from the design documents
+    Step 2: Select schedules relavent to the scoped equipment
+    Step 3: Extract schedule metadata (row labels, remarks, etc)
+    Step 4: Extract schedule rows
+    Step 5: Extract schedule column labels
+    Step 6: Extract schedule table using camelot using the metadata from the previous steps so camelot can extract even complex tables robustly
+    """
     
     prompt: BasePromptTemplate = PromptTemplate.from_template('') # TODO - use build extras?
     chat = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model="gpt-4")

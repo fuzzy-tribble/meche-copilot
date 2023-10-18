@@ -1,3 +1,13 @@
+######################
+# Makefile for linting, testing, and formatting
+
+# Usage:
+# make help
+# make lint
+# make format
+# etc
+######################
+
 .PHONY: all lint test
 
 # Default target executed when no arguments are given to make.
