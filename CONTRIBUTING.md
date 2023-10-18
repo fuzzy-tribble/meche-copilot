@@ -64,6 +64,13 @@ In addition to TODOs found in the codebase, the following are areas need develop
     + unit tests: only some unit tests are complete, some are scaffolded, and some are missing.
     + evals: evals are partially complete and need to be finished
 
+    Notes re: evals:
+    - tests are for code - like is the code running correctly, handling errors properly, etc
+    - evals are for agents - they are notebooks that help assess the quality of the agents responses and allow us to play with different prompts and see how that affects the reports and such. There is no right/wrong or pass/fail with evals but rather humans need to manually review the agents work and figure out where they are doing well and where they are not. Specifically, this code runs with three major/distinct agents that work together to fillout the worksheet
+        + agent 1: document retreival: this agents job is to get the relavent page(s) or section(s) of the user documetns in order for the others to take a closer look/analyze. This is necessary because design documents and submittals can be rather lengthy
+        + agnet 2: specs lookup: this agents job is to look at the relavent page(s) or section(s) of the user documetns and determine what specs are being used for each piece of equipment
+        + agent 3: specs comparison: this agents job is to compare the specs retreived from the designs to the ones from the submittal and comment on if the specs match or not
+
 - **Generate annots script**: the script that generates annotations from the excel sheet notes needs to be written. All of the components to do it are dont but we are waiting for the project owner to provide examples of how engineering annotations should look stylistically.
 
 - **Linting**: Started a Makefile to make it easy for devs (and later github actions) to run linting and things but didn't finish this. This needs to be robust before release.
